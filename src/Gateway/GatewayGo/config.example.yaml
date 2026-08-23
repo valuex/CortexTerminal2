@@ -1,0 +1,96 @@
+# CortexTerminal2 GatewayGo — example config.
+# All keys map 1:1 to appsettings.json sections in the C# Gateway.
+
+server:
+  listen: ":5045"
+  forwarded_headers: true   # trust X-Forwarded-For / X-Forwarded-Proto from any proxy
+
+auth:
+  signing_key: "gateway-auth-signing-key-minimum-32b"
+  worker_token_lifetime_minutes: 43200  # 30 days
+  verification_uri: "https://corterm.rwecho.top/activate"
+  github:
+    client_id: ""
+    client_secret: ""
+  google:
+    client_id: ""
+    client_secret: ""
+
+phone_auth:
+  access_key_id: ""
+  access_key_secret: ""
+  sign_name: ""
+  template_code: ""
+  region_id: "cn-hangzhou"
+
+apple_oauth:
+  client_id: ""
+  team_id: ""
+  key_id: ""
+  private_key: ""
+
+huawei_oauth:
+  client_id: "6917607730255042145"
+  client_secret: "88A451616B26A2373793D9D08BE1A90B6F6793FCCE60A148B303C39B1F0A7FCF"
+
+tts:
+  cloudflare:
+    account_id: ""
+    api_token: ""
+  aliyun:
+    api_key: ""
+    model: "cosyvoice-v2"
+    voice: "longxiaochun"
+
+scrollback:
+  max_megabytes: 5
+  max_bytes_override: 524288  # overridden at runtime by CORTERM_SCROLLBACK_BYTES env
+
+tunnels:
+  route_prefix: "/t/"
+  root_domain: ""
+  default_ttl: "24h"
+  max_tunnels_per_session: 3
+  probe_timeout: "2s"
+  forward_timeout: "30s"
+  enabled: true              # overridden at runtime by TUNNELS_ENABLED env
+  max_qps_per_tunnel: 50
+
+storage:
+  endpoint: ""
+  bucket: "corterm-artifacts"
+  region: "us-east-1"
+  access_key: ""
+  secret_key: ""
+  force_path_style: true
+  presigned_url_ttl: "15m"
+  max_artifact_size_bytes: 52428800
+  max_artifact_age_days: 7
+  grace_period_hours: 24
+  max_artifacts_per_session: 100
+
+support:
+  qq_group:
+    enabled: true
+    name: "CortexTerminal 用户群"
+    number: "REPLACE_QQ_GROUP_ID"
+    qr_code_url: "/corterm_qq_group_qr.png"
+  telegram_group:
+    enabled: false
+    name: "CortexTerminal"
+    url: "https://t.me/REPLACE"
+    qr_code_url: "/corterm_telegram_group_qr.png"
+  email: "rwecho@live.com"
+
+captcha:
+  failed_threshold: 3
+  window_minutes: 15
+  tolerance_pixels: 5
+
+github:
+  repo: "monster-echo/CortexTerminal2"
+  proxy: "https://proxy.0x2a.top"
+
+database:
+  sqlite_path: "corterm_gateway.db"
+  # or pass via GATEWAY_SQLITE_CONNECTION_STRING
